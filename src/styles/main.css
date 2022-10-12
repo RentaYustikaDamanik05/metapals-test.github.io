@@ -52,6 +52,10 @@ h1 {
 }
 .win-message {
   color: green;
+  visibility: hidden;
+}
+.win-message.win.active {
+  visibility: visible;
 }
 .px-4 {
   margin: 0 0.5rem;
