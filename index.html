@@ -77,10 +77,13 @@
       }, 1000);
     }
 
-    function holeClick() {
-      counter += 1;
-      document.querySelector('.click-result').innerHTML = counter;
+    function clickHole() {
+      if (activeStart) {
+        counter += 1;
+        document.querySelector('.click-result').innerHTML = counter;
+      }
     }
+    const holeClick = debounce(() => randomMole(), 1000);
 
     function moleClick() {
       activeStart = !activeStart;
