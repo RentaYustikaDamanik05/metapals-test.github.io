@@ -7,7 +7,7 @@
     <div class="wrapper">
       <h1>MetaPals Catch a Mole!</h1>
       <div class="holes-wrapper">
-        <div class="holes-container px-4" data-id="1" onclick="holeClick()">
+        <div class="holes-container px-4" data-id="1">
           <img
             class="mole-container"
             alt="mole"
@@ -15,7 +15,11 @@
             onclick="moleClick()"
           />
         </div>
-        <div class="holes-container px-4" data-id="2" onclick="holeClick()">
+        <div
+          class="holes-container px-4"
+          data-id="2"
+          onclick="debounce(() => clickHole(), 1000)"
+        >
           <img
             class="mole-container"
             alt="mole"
@@ -23,7 +27,11 @@
             onclick="moleClick()"
           />
         </div>
-        <div class="holes-container px-4" data-id="3" onclick="holeClick(this)">
+        <div
+          class="holes-container px-4"
+          data-id="3"
+          onclick="debounce(() => clickHole(), 1000)"
+        >
           <img
             class="mole-container"
             alt="mole"
@@ -83,7 +91,6 @@
         document.querySelector('.click-result').innerHTML = counter;
       }
     }
-    const holeClick = debounce(() => randomMole(), 1000);
 
     function moleClick() {
       activeStart = !activeStart;
@@ -125,9 +132,5 @@
         }
       }
     }
-
-    debounce(holeClick, 1000);
-
-    document.addEventListener('DOMContentLoaded', function () {});
   </script>
 </html>
