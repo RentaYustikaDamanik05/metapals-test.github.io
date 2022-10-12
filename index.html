@@ -78,7 +78,7 @@
       document.querySelector('.win-message').classList.remove('active');
       document.querySelector('.click-result').innerHTML = counter;
       document.querySelector('.btn-start').disabled = true;
-      interval = setInterval(function () {
+      timerInterval = setInterval(function () {
         timer += 1;
         document.querySelector('.time-result').innerHTML = timer;
         randomMole();
