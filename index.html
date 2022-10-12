@@ -1,5 +1,129 @@
 <!DOCTYPE html>
-<head><title>Metapals Test - Renta</title></head>
-<body><div class="holes-wrapper">IIII</div></body>
-<script src="dist/bundle.js"></script>
+<html lang="en">
+  <head>
+    <title>Metapals Test - Renta</title>
+  </head>
+  <body>
+    <div class="wrapper">
+      <h1>MetaPals Catch a Mole!</h1>
+      <div class="holes-wrapper">
+        <div class="holes-container px-4" data-id="1" onclick="holeClick()">
+          <img
+            class="mole-container"
+            alt="mole"
+            src="https://metapals.github.io/frontend-interview-test-lite/assets/mole.60ea17ce.png"
+            onclick="moleClick()"
+          />
+        </div>
+        <div class="holes-container px-4" data-id="2" onclick="holeClick()">
+          <img
+            class="mole-container"
+            alt="mole"
+            src="https://metapals.github.io/frontend-interview-test-lite/assets/mole.60ea17ce.png"
+            onclick="moleClick()"
+          />
+        </div>
+        <div class="holes-container px-4" data-id="3" onclick="holeClick(this)">
+          <img
+            class="mole-container"
+            alt="mole"
+            src="https://metapals.github.io/frontend-interview-test-lite/assets/mole.60ea17ce.png"
+            onclick="moleClick()"
+          />
+        </div>
+      </div>
+      <div class="win">
+        <div class="win-message py-4">You win!</div>
+        <div class="result-message py-4">
+          Clicks: <span class="click-result">0</span>
+        </div>
+        <div class="result-message py-4">
+          Elapsed time: <span class="time-result">0</span> seconds
+        </div>
+      </div>
+      <div class="py-4">
+        <button class="btn-start" onclick="startClick()">Start</button>
+      </div>
+    </div>
+  </body>
+  <script src="dist/bundle.js"></script>
+  <script src="src/index.js"></script>
+  <script>
+    let timer,
+      counter = 0;
+    activeStart = false;
+    let timerInterval, moleInterval;
+    function debounce(fn, delay) {
+      let timer;
+      return (() => {
+        clearTimeout(timer);
+        timer = setTimeout(() => fn(), delay);
+      })();
+    }
+
+    // usage
+    function startClick() {
+      timer = 0;
+      counter = 0;
+      activeStart = !activeStart;
+      document.querySelector('.win').classList.add('active');
+      document.querySelector('.win-message').classList.remove('active');
+      document.querySelector('.click-result').innerHTML = counter;
+      document.querySelector('.btn-start').disabled = true;
+      interval = setInterval(function () {
+        timer += 1;
+        document.querySelector('.time-result').innerHTML = timer;
+        randomMole();
+      }, 1000);
+    }
+
+    function holeClick() {
+      console.log('Hi');
+    }
+
+    function moleClick() {
+      activeStart = !activeStart;
+      counter += 1;
+      document.querySelector('.click-result').innerHTML = counter;
+      document.querySelector('.time-result').innerHTML = timer;
+      document.querySelector('.btn-start').disabled = false;
+      document.querySelector('.win-message').classList.add('active');
+      clearInterval(timerInterval);
+      clearTimeout(moleInterval);
+      if (!activeStart) {
+        alert(`Gotcha! time to catch ${timer} seconds and ${counter} clicks`);
+      } else {
+        alert('You already catch the mole, restart the game!');
+      }
+    }
+
+    function randomMole() {
+      const thisTimer = [200, 400];
+      const id = ['1', '2', '3'];
+      const randomItem = id[Math.floor(Math.random() * id.length)];
+      const randomTimer =
+        thisTimer[Math.floor(Math.random() * thisTimer.length)];
+      const hole = document.getElementsByClassName('holes-container');
+      for (let i = 0; i < hole.length; i++) {
+        if (randomItem === hole[i].getAttribute('data-id')) {
+          document
+            .getElementsByClassName('mole-container')
+            [i].classList.add('active');
+          moleInterval = setTimeout(function () {
+            document
+              .getElementsByClassName('mole-container')
+              [i].classList.remove('active');
+          }, randomTimer);
+        } else {
+          document
+            .getElementsByClassName('mole-container')
+            [i].classList.remove('active');
+        }
+      }
+    }
+
+    debounce(holeClick, 1000);
+
+    document.addEventListener('DOMContentLoaded', function () {});
+  </script>
 </html>

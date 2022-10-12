@@ -1,1 +1,2 @@
-import './styles/main.css';
+import style from './styles/main.css';
+console.log('HAISEM');
